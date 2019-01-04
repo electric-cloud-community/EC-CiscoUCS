@@ -1,0 +1,25 @@
+<editor>
+    <formElement>
+        <type>entry</type>
+        <label>Configuration Name:</label>
+        <property>config</property>
+        <value></value>
+        <required>1</required>
+    </formElement>
+    <formElement>
+        <type>entry</type>
+        <label>Cisco UCS URL:</label>
+        <property>ucs_url</property>
+        <value></value>
+        <documentation>URL of Cisco UCS Server (must include protocol, server and port).</documentation>
+		<required>1</required>
+    </formElement>
+
+    <formElement>
+        <type>credential</type>
+        <label>Login as:</label>
+        <property>credential</property>
+        <value></value>
+        <required>0</required>
+    </formElement>
+</editor>

@@ -1,0 +1,29 @@
+<project name="EC-CiscoUCS" default="package" basedir=".">
+    <description>
+        Build the EC-CiscoUCS plugin
+    </description>
+
+    <property name="buildconfigdir" value="../Plugin-In-A-Box/scripts" />
+    
+	<!-- plugin specific properties -->
+	<property name="pluginKey" value="EC-CiscoUCS" />
+	<property name="pluginVersion" value="1.0" />
+	<property name="gwtModules" value="ecplugins.ucs.ConfigurationManagement,ecplugins.ucs.Reports" />
+    <property name="package.export.src" value="ucs.srcs"/>
+
+    <import file="${buildconfigdir}/buildTargets.xml"/>
+
+    <!-- Package sources for exported utility classes. -->
+    <fileset id="ucs.srcs" dir="${dir.src}">
+      <include name="**/PluginConstants.java"/>
+      <include name="**/UCSConfigList.java"/>
+      <include name="**/UCSConfigListLoader.*"/>
+    </fileset>
+
+    <fileset id="images" dir="${dir.htdocs}">
+      <include name="**/PluginConstants.java"/>
+      <include name="**/UCSConfigList.java"/>
+      <include name="**/UCSConfigListLoader.*"/>
+    </fileset>
+	
+</project>

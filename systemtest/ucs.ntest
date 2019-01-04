@@ -1,0 +1,213 @@
+# -*-Perl-*-
+
+###############################
+# ucs.ntest
+#
+# Exercise basic components of EC-CiscoUCS plugin
+#
+# Copyright (c) 2005-2010 Electric Cloud, Inc.
+# All rights reserved
+###############################
+
+use strict;
+use warnings;
+use ECTest;
+
+initCommander();
+
+$::gPlugin_name   = $::ENV{PLUGIN_NAME};
+$::gPlugin_key    = $::gPlugin_name;
+$::gPlugin_key    =~ s/-[^-]+$//;
+$::gPlugin_driver = $::gPlugin_key;
+$::gPlugin_driver =~ s/-/::/g;
+
+   use constant {
+       SUCCESS => 0,
+       ERROR   => 1,
+       WINDOWS_OS_ID => 'MSWin32'
+   };
+
+# win/lin matches the chronic3 procedure platform property
+$::gPlatform       = 'lin';
+if ($^O eq WINDOWS_OS_ID) {
+    $::gPlatform = 'win';
+}
+
+# from initCommander
+$::N = $adminSession;
+my $xpath = $::N->getPlugin($::gPlugin_key);
+$::gPlugin_name = $xpath->findvalue('//pluginName')->value;
+$::gPlugin_ver = $xpath->findvalue('//pluginVersion')->value;
+$::gCreatePrivateDirs = 1;
+
+
+
+# triggers fake data
+$::gRunTestUseFakeOutput = 1;
+
+$::gProjectImported = 0;
+$::gtestProjectName = 'UCSTestProject';
+
+my $outcome = '';
+
+########################################################################
+# importProject - imports the test project and asserts that the specified
+#                 procedures exists
+#
+# Arguments:
+#   -none
+#
+# Returns:
+#   -nothing
+#
+########################################################################
+sub importProject() {
+ 
+    #assert project exists and is imported
+    assertOK($::N->import(
+             { file =>"$::gTestFileDir/ucsSystemTests.xml",
+               path  => "/projects/UCSTestProject",
+               force => 1
+             } ), 'import unsuccessful');
+    
+    #assert all given procedures exist   
+    assertOK($::N->getProcedure($::gtestProjectName, 'sendTestRequestNoLogin'),
+    'sendTestRequestNoLogin procedure doesn\'t exist');
+    
+       $::gProjectImported = 1;
+}
+
+########################################################################
+# doSetup - invokes the project import method in case it hasn't been 
+#           executed
+#
+# Arguments:
+#   -none
+#
+# Returns:
+#   -nothing
+#
+########################################################################
+sub doSetup() {
+
+    if(! $::gProjectImported) {
+        importProject();
+    }
+    
+}
+
+################################
+# check-components-present - Check that the plugin contains required components
+#
+# Arguments:
+#   none
+#
+# Returns:
+#   none
+#
+################################
+ntest "check-components-present", {}, sub {
+    
+    my $xpath = $::N->getSteps("$::gPlugin_name","CreateConfiguration");
+    assertOK($xpath,"CreateConfiguration");
+    assertEq("CreateConfiguration", $xpath->findvalue("//step[1]/stepName"), "step 1 is CreateConfiguration");
+    assertEq("CreateAndAttachCredential", $xpath->findvalue("//step[2]/stepName"), "step 2 is CreateAndAttachCredential");
+
+};
+
+################################
+# setup-create configuration - Test creating a configuration
+#
+# Arguments:
+#   none
+#
+# Returns:
+#   none
+#
+################################
+ntest "setup-create configuration", {}, sub {
+    my $xpath = $::N->runProcedure("$::gPlugin_name", 
+        { procedureName => "CreateConfiguration",
+          pollInterval  => '0.2',
+          timeout       => 600,
+          actualParameter => [ 
+            { actualParameterName => 'config', value => "config" }, 
+            { actualParameterName => 'ucs_url', value => "http://192.168.246.130/nuova" },
+            { actualParameterName => 'credential', value => "config" }, 
+          ],
+          credential => [ 
+            { credentialName => 'config', userName => "config", password => "config", },
+          ],
+        });
+
+    assertOK($xpath, 'run create configuration procedure');
+    # make sure it finished
+    my $jobId = 0;
+    my $status = '';
+    assertDef($xpath, 'runProcedure finished without a timeout');
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+
+        #abort if job did not finish
+        if ($status ne 'completed') {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+
+    # examine log files
+    $xpath = $::N->getJobDetails($jobId);
+
+    writeFile("$::gCurrentTestDir/createConfiguration.log","====Job Details====\n$xpath->{_xml}\n");
+
+    # check that the config and credential exist
+    $xpath = $::N->getProperty("/projects/$::gPlugin_name/ucs_cfgs/config/ucs_url");
+    assertEq('http://192.168.246.130/nuova', $xpath->findvalue("//value")->string_value,"server url");
+    
+    $xpath = $::N->getCredential("$::gPlugin_name",'config');
+    assertEq('config', $xpath->findvalue("//userName")->string_value, 'Credential user');
+};
+
+
+ntest "sendTestRequestNoLogin", {}, sub {
+
+      doSetup();
+      
+      # run test job
+     
+      my $xpath = $::N->runProcedure($::gtestProjectName, 
+              {procedureName => "sendTestRequestNoLogin",
+              pollInterval  => '1',
+              timeout => 600,
+                   actualParameter => [
+                  
+                  ]
+      });
+          
+       
+      # make sure it finished
+      my $jobId = 0;
+      my $status = '';
+      
+      assertOK($xpath, 'runProcedure has errors');
+      if ($xpath) {
+          $jobId  = $xpath->findvalue("//jobId");
+          $status = $xpath->findvalue("//status");
+          $outcome = $xpath->findvalue("//outcome");
+  
+          assertTrue($jobId && $jobId ne "",'valid job id');
+          assertEq('completed',$status,"job $jobId complete");
+  
+          #abort if job did not finish
+          if ($status ne 'completed') {
+              assertOK($::N->abortJob($jobId, {force => 1}));
+          }
+      }
+
+      # get the job details
+      $xpath = $::N->getJobDetails($jobId);
+
+};

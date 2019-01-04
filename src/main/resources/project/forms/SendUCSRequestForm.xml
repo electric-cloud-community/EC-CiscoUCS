@@ -1,0 +1,41 @@
+    <editor>
+		<help>/commander/pages/@PLUGIN_NAME@/@PLUGIN_KEY@_help?s=Administration&amp;ss=Plugins#SendUCSRequest</help>
+	    <formElement>
+	        <type>entry</type>
+	        <label>Configuration Name:</label>
+	        <property>configname</property>
+	        <required>1</required>
+	        <documentation>Provide the name of the configuration that holds the connection information for connecting to the UCS Server.</documentation>
+			<value></value>
+	    </formElement>
+		
+		<formElement>
+			<type>radio</type>
+			<label>Script File Mode:</label>
+			<property>scriptfilemode</property>
+			<required>1</required>
+			<documentation>Indicate either if the XML file to be sent will be read from a local file or if its content will be specified by the user. When using a embedded file, a file is created from the content of the 'Script File Content' parameter, when using one provided by the user, the file snet will be the located at the path described in the Script File Path parameter.</documentation>
+			<option><name>Existent File</name><value>existentfile</value></option>
+			<option><name>Embedded file</name><value>embeddedfile</value></option>
+		</formElement>
+		
+		<formElement>
+	        <type>entry</type>
+	        <label>Script File Path:</label>
+	        <property>scriptfilepath</property>
+	        <required>0</required>
+			 <value></value>
+	        <documentation>Provide the content of the XML file to be sent (in case Embedded File option from the scriptfilemode parameter is selected).</documentation>
+	    </formElement>
+		
+		
+		 <formElement>
+            <type>textarea</type>
+            <label>Script File Content:</label>
+            <property>scriptfilecontent</property>
+            <required>0</required>
+            <documentation>Provide the content of the XML file to be sent (in case Embedded File option from the scriptfilemode parameter is selected).</documentation>
+        </formElement>
+
+		
+	</editor>

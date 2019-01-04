@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <key>@PLUGIN_KEY@</key>
+    <version>@PLUGIN_VERSION@</version>
+    <label>@PLUGIN_KEY@</label>
+    <description>Cisco UCS integration</description>
+    <configure>configurations.xml</configure>
+    <help>EC-CiscoUCS_help.xml</help>
+    <author>Electric Cloud</author>
+    <authorUrl>http://www.electric-cloud.com/support</authorUrl>
+    <category>Resource Management</category>
+    <commander-version min="3.6"/>
+    <customTypes>
+        <customType name="reports">
+            <displayName>Display UCS Report</displayName>
+            <description>description for UCS reports custom type.</description>
+            <page pageName="ucsReports" definition="pages/reports.xml" />
+        </customType>
+    </customTypes>
+    <components>
+        <component name="ConfigurationManagement">
+            <javascript>war/ecplugins.ucs.ConfigurationManagement/ecplugins.ucs.ConfigurationManagement.nocache.js</javascript>
+        </component>
+        <component name="Reports">
+            <javascript>war/ecplugins.ucs.Reports/ecplugins.ucs.Reports.nocache.js</javascript>
+        </component>
+    </components>
+</plugin>

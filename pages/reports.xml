@@ -1,0 +1,7 @@
+<configDefinition>
+  <title>Query Report</title>
+  <helpLink>/link/showHelp?page=ucshelp</helpLink>
+     <componentContainer>
+     <component plugin="@PLUGIN_KEY@" version="@PLUGIN_VERSION@" ref="Reports" />
+  </componentContainer>
+</configDefinition>

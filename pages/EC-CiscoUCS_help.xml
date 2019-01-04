@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta name="generator" content="HTML Tidy for Windows (vers 25 March 2009), see www.w3.org" />
+        <meta content="text/html; charset=us-ascii" http-equiv="content-type" />
+        <title>ElectricFlow Plugin for Cisco UCS</title>
+        <link rel="stylesheet" href="../../plugins/@PLUGIN_KEY@/pluginhelp.css" type="text/css" media="screen" />
+    </head>
+    <body>
+        <div class="help">
+            <h1 class="pluginname">Cisco UCS</h1>
+            <p>Plugin Version @PLUGIN_VERSION@</p>
+            <hr style="margin-left: -10px; margin-top: 10px; height: 1px; width: 100%; color: #5981BD;" noshade="noshade" />
+			
+			<p>Revised on July 1, 2015</p>
+			<h1>Contents</h1>
+			<ul>
+			<li><p><a href="#overview">Overview</a></p></li>
+			<li><p><a href="#procedures">Plugin Procedures</a></p></li>
+			<li><p><a href="#example">Examples and Use Cases</a></p></li>
+			<li><p><a href="#rns">Release Notes</a></p></li>
+			</ul>
+			<h1 id="overview">Overview</h1>
+            <p>Cisco Unified Computing System (UCS) Manager provides unified, embedded management of all software and hardware components in Cisco UCS. It controls multiple chassis and manages resources for thousands of virtual machines.</p>
+           
+            <p>Cisco UCS Manager offers</p>
+           
+            <ul>
+                <li>A unified embedded management interface that integrates server, network, and storage access</li>
+                <li>Policy and model-based management with service profiles that improves agility and reduces risk</li>
+                <li>Autodiscovery to detect, inventory, manage, and provision system components that are added or changed</li>
+                <li>A comprehensive open XML API, which facilitates integration with third-party systems management tools</li>
+                <li>Role-based administration that builds on existing skills and supports collaboration across disciplines</li>
+            </ul>
+           
+           
+            <h2>Cisco UCS Links</h2>
+            <p>For details, see <a href="http://developer.cisco.com/web/unifiedcomputing/start">Getting Started with Cisco UCS Manager</a>.    
+            </p>
+           
+            <h2>ElectricFlow Integration to Cisco UCS</h2>
+            <p>This plugin lets you interact with the XML API for Cisco UCS Manager. Your can send XML files to log in and retrieve the information you need from Cisco UCS.
+            </p>
+            <p>ElectricFlow provides advantages such as
+            parameter checking, easy functionality selection using only check
+            boxes, combo buttons, historical log reports, procedure duration
+            statistics, simple credentials attachment, and real-time analysis of
+            logs.</p>
+           
+            <h2>Integrated Version</h2>
+            <p>This plugin was developed and tested with Cisco UCS Manager version 1.4.</p>
+           
+            <h1 id="procedures">Plugin Procedures</h1>
+            <p>IMPORTANT: For all parameter descriptions below, required
+            parameters are shown in <span class="required">bold
+            italics</span>.</p>
+			
+			<p>IMPORTANT: In the ElectricFlow UI, go to the Home page, open the Main Menu, and click <b>Admin</b> &gt; <b>Plugins</b> to open the Plugin Manager.</p>
+
+    <h2>Plugin Configuration</h2>
+
+    <p>
+        Plugin configurations are sets of parameters that apply
+        across some or all of the plugin's procedures. They reduce repetition of common values, create
+        predefined sets of parameters for end users, and
+        securely store credentials where needed. Each configuration
+        is given a unique name that is entered in designated
+        parameters on procedures that use them.<br />
+        <p>To create plugin configurations, click the ElectricFlow "Administration" tab, then click the "Plugins" subtab. On the right side of the line for the specific
+        plugin, click the "Configure" link to open the
+        Configuration page.</p>
+    </p>
+
+    <h3>Plugin Configuration Parameters</h3>
+
+    <table class="grid">
+        <thead>
+            <tr>
+                <th>Parameter</th>
+
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td class="required">Configuration Name</td>
+
+                <td>Unique name for the configuration. Keep in mind that you might need to create additional configurations later.
+                (Required)</td>
+            </tr>
+
+            <tr>
+                <td class="required">Cisco UCS URL</td>
+
+                <td>URL of the Cisco UCS Server XML API. The URL must include the protocol, server, and port number. For example: http://localhost:7001/nuova. The keyword "nuova" is required. (Required)</td>
+            </tr>
+
+            <tr>
+                <td class="required">Credential</td>
+
+                <td>Username and password for the UCS Manager server. (Required)</td>
+            </tr>
+        </tbody>
+    </table>
+         <h2>Parameter
+        Form</h2><img src="../../plugins/@PLUGIN_KEY@/images/CiscoUCS-1.png" alt="form" />  
+           
+           
+        <div id="SendUCSRequest"><a name="SendUCSRequest" id="SendUCSRequest"></a>
+            <h3>SendUCSRequest</h3>
+            <p>Lets you power up the specified virtual machine in Cisco UCS and create an ElectricFlow resource for that machine.</p>
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="required">Configuration Name</td>
+                        <td>Name of the configuration containing the information for connecting to the Cisco UCS server. (Required)</td>
+                    </tr>
+                    <tr>
+                        <td class="required">Script File Mode</td>
+                        <td>Location of the script to be sent. (Required) Choose one of the following:
+						
+						<p>Existent File: Use an existing XML file. Type the path to this file into the Script File Path parameter.</p>
+						
+						<p>Embedded File: Use a local XML file. Create the file by typing the script into the Script File Content parameter.</p>
+					</td>
+                    </tr>
+                     <tr>
+                        <td>Script File Path</td>
+                        <td>Absolute path of the XML file to be sent if the Existent File option is selected.</td>
+                    </tr>
+                    <tr>
+                        <td>Script File Content</td>
+                        <td>Content of the XML file to be sent if the Embedded File option  is selected.</td>
+                    </tr>
+                </tbody>
+            </table>
+			<h2>Parameter
+        Form</h2><img src="../../plugins/@PLUGIN_KEY@/images/CiscoUCS-4.png" alt="form" />
+        </div>
+		
+		<h1 id="example">Examples and Use Cases</h1>
+
+		<h2>Creating a
+		Configuration</h2><img src="../../plugins/@PLUGIN_KEY@/images/CiscoUCS-2.png" alt="screenshot" /> 
+
+		<h2>Stored Configurations</h2><img src="../../plugins/@PLUGIN_KEY@/images/CiscoUCS-3.png" alt="screenshot" /> 
+
+		<h2>Sending a Ciscu UCS Request by Using an Existing File</h2><img src="../../plugins/@PLUGIN_KEY@/images/CiscoUCS-4.png" alt="screenshot" /> 
+			  
+		<h2>Sending a Cisco UCS Request by Using an Embedded File</h2><img src="../../plugins/@PLUGIN_KEY@/images/CiscoUCS-7.png" alt="screenshot" /> 
+
+		<h2>Expected Output for a Successful Request</h2><img src="../../plugins/@PLUGIN_KEY@/images/CiscoUCS-5.png" alt="screenshot" /> 
+			  
+		  <h2>Log File Example</h2><img src="../../plugins/@PLUGIN_KEY@/images/CiscoUCS-6.png" alt="screenshot" /> 
+
+		
+        <h1 id="rns">Release Notes</h1>
+	<h2>@PLUGIN_KEY@ 1.0.5</h2>
+    <ul>
+        <li>Fixed issue with configurations being cached for IE.</li>
+    </ul>
+		
+		<h2>@PLUGIN_KEY@-1.0.4</h2>
+            <ul>
+				<li>Renamed ElectricCommander to ElectricFlow.</li>
+            </ul>
+       
+	    <h2>@PLUGIN_KEY@-1.0.3</h2>
+            <ul>
+                <li>Created the XML parameters panels.</li>
+				<li>Improved the Help page.</li>
+            </ul>
+	   
+        <h2>@PLUGIN_KEY@-1.0.2</h2>
+            <ul>
+                <li>Created the Help page.</li>
+            </ul>
+        <h2>@PLUGIN_KEY@-1.0.1</h2>   
+            <ul>
+                <li>Fixed the plugin configuration list.</li>          
+            </ul>
+        </div>
+    </body>
+</html>
