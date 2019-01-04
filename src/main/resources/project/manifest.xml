@@ -1,0 +1,39 @@
+<?xml version='1.0' standalone='yes'?>
+<fileset>
+  <file>
+    <path>forms/UCSCreateConfigForm.xml</path>
+    <xpath>//property[propertyName=&quot;ui_forms&quot;]/propertySheet/property[propertyName=&quot;UCSCreateConfigForm&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>forms/UCSEditConfigForm.xml</path>
+    <xpath>//property[propertyName=&quot;ui_forms&quot;]/propertySheet/property[propertyName=&quot;UCSEditConfigForm&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>matchers/responseMatchers.pl</path>
+    <xpath>//property[propertyName=&quot;response_matchers&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>forms/SendUCSRequestForm.xml</path>
+    <xpath>//procedure[procedureName=&quot;SendUCSRequest&quot;]/propertySheet/property[propertyName=&quot;ec_parameterForm&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>server/sendUCSRequest.pl</path>
+    <xpath>//procedure[procedureName=&quot;SendUCSRequest&quot;]/step[stepName=&quot;RunUCSRequest&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>conf/createcfg.pl</path>
+    <xpath>//procedure[procedureName=&quot;CreateConfiguration&quot;]/step[stepName=&quot;CreateConfiguration&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>conf/createAndAttachCredential.pl</path>
+    <xpath>//procedure[procedureName=&quot;CreateConfiguration&quot;]/step[stepName=&quot;CreateAndAttachCredential&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>conf/deletecfg.pl</path>
+    <xpath>//procedure[procedureName=&quot;DeleteConfiguration&quot;]/step[stepName=&quot;DeleteConfiguration&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>ec_setup.pl</path>
+    <xpath>//property[propertyName=&quot;ec_setup&quot;]/value</xpath>
+  </file>
+</fileset>
