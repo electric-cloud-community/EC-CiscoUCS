@@ -13,7 +13,7 @@
             <p>Plugin Version @PLUGIN_VERSION@</p>
             <hr style="margin-left: -10px; margin-top: 10px; height: 1px; width: 100%; color: #5981BD;" noshade="noshade" />
 			
-			<p>Revised on July 1, 2015</p>
+			<p>Revised on January 29, 2019</p>
 			<h1>Contents</h1>
 			<ul>
 			<li><p><a href="#overview">Overview</a></p></li>
@@ -162,31 +162,33 @@
 		  <h2>Log File Example</h2><img src="../../plugins/@PLUGIN_KEY@/images/CiscoUCS-6.png" alt="screenshot" /> 
 
 		
-        <h1 id="rns">Release Notes</h1>
-	<h2>@PLUGIN_KEY@ 1.0.5</h2>
-    <ul>
-        <li>Fixed issue with configurations being cached for IE.</li>
-    </ul>
+          <h1 id="rns">Release Notes</h1>
+          <h2>@PLUGIN_KEY@ 1.0.6</h2>
+          <ul>
+              <li>Added metadata that is required for 9.0 release.</li>
+          </ul>
+	      <h2>@PLUGIN_KEY@ 1.0.5</h2>
+          <ul>
+              <li>Fixed issue with configurations being cached for IE.</li>
+          </ul>
 		
-		<h2>@PLUGIN_KEY@-1.0.4</h2>
-            <ul>
-				<li>Renamed ElectricCommander to ElectricFlow.</li>
-            </ul>
-       
-	    <h2>@PLUGIN_KEY@-1.0.3</h2>
-            <ul>
-                <li>Created the XML parameters panels.</li>
-				<li>Improved the Help page.</li>
-            </ul>
-	   
-        <h2>@PLUGIN_KEY@-1.0.2</h2>
-            <ul>
-                <li>Created the Help page.</li>
-            </ul>
-        <h2>@PLUGIN_KEY@-1.0.1</h2>   
-            <ul>
-                <li>Fixed the plugin configuration list.</li>          
-            </ul>
-        </div>
-    </body>
+		  <h2>@PLUGIN_KEY@-1.0.4</h2>
+          <ul>
+			  <li>Renamed ElectricCommander to ElectricFlow.</li>
+          </ul>
+	      <h2>@PLUGIN_KEY@-1.0.3</h2>
+          <ul>
+              <li>Created the XML parameters panels.</li>
+			  <li>Improved the Help page.</li>
+          </ul>
+          <h2>@PLUGIN_KEY@-1.0.2</h2>
+          <ul>
+              <li>Created the Help page.</li>
+          </ul>
+          <h2>@PLUGIN_KEY@-1.0.1</h2>   
+          <ul>
+              <li>Fixed the plugin configuration list.</li>          
+          </ul>
+      </div>
+  </body>
 </html>
